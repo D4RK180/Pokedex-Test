@@ -20,10 +20,10 @@ h1{margin:0 0 0 auto;font-size:1.3rem;color:#fff;letter-spacing:1px}
 .tema{flex:none;background:var(--card-bg);color:var(--ink);border:2px solid var(--border);border-radius:8px;padding:8px 10px;font:inherit;cursor:pointer}
 .tema:hover{background:var(--hover)}
 .main{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;flex:1;min-height:0}
-.screen{background:var(--screen);border:4px solid var(--border);border-radius:12px;padding:14px;min-height:0;box-shadow:inset 0 0 12px rgba(0,0,0,.25)}
+.screen{background:var(--screen);border:4px solid var(--border);border-radius:12px;padding:14px;min-height:0;overflow:auto;box-shadow:inset 0 0 12px rgba(0,0,0,.25)}
 .hero{display:flex;align-items:center;gap:12px}
 .hero img{width:150px;height:150px;image-rendering:auto;background:var(--card-bg);border:3px solid var(--border);border-radius:10px}
-.hero h2{margin:0;font-size:1.5rem;text-transform:capitalize}
+.hero h2{margin:0;font-size:1.5rem}
 :root[data-theme="dark"] .num{color:#fff1a6;opacity:1}
 .num{font-weight:bold;opacity:.7}
 .tipos{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
@@ -35,7 +35,7 @@ h3{margin:14px 0 6px;font-size:.95rem}
 .bar{height:10px;background:var(--bar-bg);border-radius:6px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--bar-fill);border-radius:6px}
 .evo{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-.evo button{background:var(--card-bg);color:var(--ink);border:2px solid var(--border);border-radius:10px;padding:2px 6px;cursor:pointer;font:inherit;font-size:.75rem;text-transform:capitalize}
+.evo button{background:var(--card-bg);color:var(--ink);border:2px solid var(--border);border-radius:10px;padding:2px 6px;cursor:pointer;font:inherit;font-size:.75rem}
 .evo button img{display:block;width:56px;height:56px;margin:auto}
 .evo button:hover{background:var(--field-bg)}
 .evo span{font-weight:bold}
@@ -46,11 +46,21 @@ input{flex:1}
 .aleatorio{font:inherit;padding:8px;border:2px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;background:var(--hover);color:var(--ink)}
 .aleatorio:hover:not(:disabled){background:var(--hover-strong)}
 .aleatorio:disabled{cursor:wait;opacity:.6}
-.lista{list-style:none;margin:0;padding:0;overflow:auto;min-height:0;flex:1}
-.lista li button{width:100%;text-align:left;background:none;color:var(--ink);border:0;border-bottom:1px solid var(--line);padding:7px 6px;font:inherit;cursor:pointer;text-transform:capitalize;display:flex;gap:8px;align-items:center}
+.fq{margin-top:4px}
+.fq h4{margin:10px 0 4px;font-size:.75rem;opacity:.85}
+.fq .tipo{display:inline-flex;gap:6px;align-items:center}
+.fq .tipo b{border:1px solid currentColor;border-radius:999px;padding:0 6px}
+.fq .forte .tipo{font-size:.85rem;padding:4px 10px}
+.fq .leve .tipo{font-size:.7rem;padding:2px 8px}
+.fq .vazio{font-size:.7rem;margin:2px 0}
+.fq .nota{font-size:.65rem;line-height:1.6;opacity:.9;margin:10px 0 0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ramos{display:flex;flex-direction:column;gap:4px}
+.lista{position:relative;list-style:none;margin:0;padding:0;overflow:auto;min-height:0;flex:1}
+.lista li button{width:100%;text-align:left;background:none;color:var(--ink);border:0;border-bottom:1px solid var(--line);padding:7px 6px;font:inherit;cursor:pointer;display:flex;gap:8px;align-items:center}
 .lista li button:hover,.lista li button.on{background:var(--hover)}
 .lista img{width:36px;height:36px}
-button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #1d8fd1;outline-offset:1px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #1d8fd1;outline-offset:1px;box-shadow:0 0 0 5px #fff}
 .msg{padding:20px;text-align:center}
 @media(max-width:720px){
   body{height:auto;min-height:100vh;min-height:100dvh;overflow-x:hidden;overflow-y:auto}
@@ -60,7 +70,8 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   .side{min-height:0}
   .hero img{width:clamp(88px,27vw,120px);height:clamp(88px,27vw,120px);flex:none}
   .filtros{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  input,select,.aleatorio{font-size:.65rem}
+  .aleatorio{font-size:.65rem}
+  input,select{font-size:16px;font-family:"Trebuchet MS",Verdana,sans-serif}
   button{min-height:40px}
 }
 @media(max-width:480px){
@@ -76,16 +87,17 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   h3{font-size:.75rem}
   .stat{font-size:.62rem;grid-template-columns:minmax(0,1.2fr) 28px minmax(0,2fr);gap:4px}
   .tipo{font-size:.65rem}
-  .evo button{font-size:.6rem}
+  .evo button{font-size:.65rem}
 }
 </style>
 </head>
 <body>
 <div class="dex">
-  <div class="top"><div class="lens"></div><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><h1>POKÉDEX · KANTO</h1><button class="tema" id="tema" type="button" aria-label="Ativar modo escuro" aria-pressed="false">☾</button></div>
-  <div class="main">
-    <section class="screen" id="tela" aria-live="polite"><p class="msg">Carregando...</p></section>
-    <section class="side">
+  <div id="status" class="sr" role="status"></div>
+  <div class="top"><div class="lens"></div><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><h1>POKÉDEX · KANTO</h1><button class="tema" id="tema" type="button" aria-label="Modo escuro" aria-pressed="false">☾</button></div>
+  <main class="main">
+    <section class="screen" id="tela" tabindex="-1" aria-label="Ficha do Pokémon"><p class="msg">Carregando...</p></section>
+    <section class="side" aria-label="Lista de Pokémon">
       <div class="filtros">
         <input id="busca" type="search" placeholder="Nome ou número (1–151)" aria-label="Buscar Pokémon">
         <select id="tipo" aria-label="Filtrar por tipo"><option value="">Todos os tipos</option></select>
@@ -93,7 +105,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
       <button class="aleatorio" id="aleatorio" type="button" disabled>Pokémon aleatório</button>
       <ul class="lista" id="lista"></ul>
     </section>
-  </div>
+  </main>
 </div>
 
 <script>
@@ -104,6 +116,7 @@ const SMALL = id => "https://raw.githubusercontent.com/PokeAPI/sprites/master/sp
 const TIPOS = {normal:["Normal","#a8a878"],fire:["Fogo","#f08030"],water:["Água","#6890f0"],electric:["Elétrico","#e0b010"],grass:["Planta","#78c850"],ice:["Gelo","#58c8c8"],fighting:["Lutador","#c03028"],poison:["Veneno","#a040a0"],ground:["Terra","#b8964a"],flying:["Voador","#8f78e0"],psychic:["Psíquico","#f85888"],bug:["Inseto","#a8b820"],rock:["Pedra","#a08828"],ghost:["Fantasma","#705898"],dragon:["Dragão","#7038f8"],dark:["Sombrio","#705848"],steel:["Aço","#8888a8"],fairy:["Fada","#ee99ac"]};
 const STATS = {hp:"Vida",attack:"Ataque",defense:"Defesa","special-attack":"Ataque esp.","special-defense":"Defesa esp.",speed:"Velocidade"};
 
+const LORE = ["Carrega uma semente nas costas que cresce com ele e absorve a luz do sol.", "O bulbo nas costas cresce e começa a se abrir quando ele fica mais forte.", "A grande flor nas costas capta o sol e solta um perfume que acalma.", "A chama na ponta da cauda mostra a saúde e o humor dele.", "Fica agressivo nas lutas e balança a cauda em chamas para atacar.", "Voa pelos céus e solta um fogo tão quente que derrete pedras.", "Se esconde no casco e dispara jatos de água com muita precisão.", "A cauda peluda e as orelhas mostram que ele é forte e vive muito.", "Os canhões do casco disparam jatos de água com força total.", "Come folhas sem parar e solta fios pegajosos para se proteger.", "Fica imóvel dentro da casca dura, esperando para evoluir.", "Voa longe atrás de flores e espalha pó colorido pelas asas.", "Tem um ferrão venenoso na cabeça e vive escondido em florestas.", "Fica parado dentro do casulo duro enquanto se prepara para evoluir.", "Ataca em grupo, usando os ferrões rápidos dos braços e da cauda.", "Pássaro calmo que levanta areia batendo as asas para se defender.", "Voa sobre um grande território procurando presas com as garras afiadas.", "Voa em alta velocidade e tem uma crista bonita e imponente.", "Roedor que vive em qualquer lugar; seus dentes nunca param de crescer.", "Rói quase tudo com as presas afiadas, até paredes.", "Pássaro barulhento e valente que defende seu território.", "Voa por horas e mergulha para pegar presas com o bico longo.", "Cobra que se enrola para descansar e se esconde na grama.", "O desenho no peito assusta os inimigos; ele aperta as presas sem soltar.", "Guarda eletricidade nas bochechas e solta choques quando se assusta.", "Solta choques fortes e usa a cauda para descarregar energia.", "Vive em lugares secos e se enrola em uma bola para se proteger.", "Os espinhos afiados das costas servem para atacar e para se defender.", "Pequena e cheia de espinhos com veneno; tem um chifre curto.", "Fica calma perto da família e cuida bem dos companheiros.", "O corpo coberto de escamas duras protege os filhotes com força.", "As orelhas grandes captam sons distantes e o chifre é venenoso.", "O chifre é muito duro e ele fica furioso com facilidade.", "A cauda grossa derruba qualquer um e o chifre injeta veneno.", "Pokémon fofo e raro, visto às vezes sob a luz da lua.", "Ouve muito bem e foge dos humanos; é difícil de encontrar.", "Tem seis caudas macias e solta chamas pela boca.", "Tem nove caudas e, segundo a lenda, vive mil anos.", "Canta uma melodia que faz todo mundo dormir.", "O corpo macio e elástico incha quando ele respira fundo.", "Vive em cavernas escuras e se guia por ondas sonoras.", "Morde e suga o sangue de suas presas durante a noite.", "Planta que anda à noite e espalha sementes pelo caminho.", "Solta um cheiro forte quando está irritado.", "Tem as maiores pétalas e espalha um pólen que causa alergia.", "Cogumelos crescem nas suas costas e tiram sua energia.", "O cogumelo das costas controla o corpo dele.", "Tem olhos grandes e peludos; vive em florestas escuras.", "O pó das asas pode paralisar; fica ativo à noite.", "Vive debaixo da terra e só mostra a cabeça.", "Três Diglett juntos cavam túneis em alta velocidade.", "Gato que adora moedas brilhantes e dorme durante o dia.", "Elegante e orgulhoso, ataca sem avisar.", "Vive com dor de cabeça e usa poderes psíquicos quando ela piora.", "Nada rápido com as patas palmadas e domina a água.", "Ágil e esquentado; pula e soca quando fica bravo.", "Fica furioso e persegue o alvo até o fim.", "Cão leal e corajoso; late alto para defender o território.", "Corre muito rápido e é conhecido como Pokémon lendário.", "Tem uma espiral na barriga; nada bem, mas anda mal.", "A espiral da barriga hipnotiza e ele vive perto da água.", "Musculoso, nada muito bem e luta com força.", "Dorme 18 horas por dia e se teletransporta ao sentir perigo.", "A colher dobrada aumenta seus poderes psíquicos.", "Tem inteligência altíssima e lembra de tudo que já viu.", "Pequeno, mas muito forte; treina os músculos todo dia.", "Usa um cinto para controlar a enorme força que tem.", "Tem quatro braços que socam centenas de vezes em segundos.", "Parece uma planta fina e usa cipós para capturar insetos.", "O corpo em forma de folha cospe um ácido forte.", "Atrai presas com um cheiro doce e as engole inteiras.", "Água-viva transparente que flutua perto da praia.", "Tem muitos tentáculos que prendem e envenenam.", "Parece uma pedra no chão; quem pisa nele leva um susto.", "Rola montanha abaixo e destrói tudo pelo caminho.", "A casca dura aguenta explosões e ele troca de casca todo ano.", "Potro ágil que já nasce correndo; a crina é de fogo.", "Corre a mais de 200 km/h com a crina em chamas.", "Muito lento: leva tempo para perceber que sente dor.", "Um Shellder preso na cauda faz ele pensar bem devagar.", "Flutua e absorve eletricidade, criando um campo magnético.", "Três Magnemite juntos geram ondas magnéticas fortes.", "Carrega um talo de cebolinha e o usa como arma.", "Tem duas cabeças e corre muito rápido, mas não voa.", "Tem três cabeças, cada uma com um humor diferente.", "Vive no gelo e nada rápido, protegido do frio.", "Fica em águas geladas e sua pele branca ajuda a se camuflar.", "Feito de lama tóxica, vive em esgotos.", "Seu corpo tóxico faz nada crescer onde ele passa.", "Se esconde na casca dura e abre só para atacar com a língua.", "A casca é muito dura e tem pontas afiadas.", "O corpo é feito de gás, que sufoca quem o respira.", "Vive na escuridão e lambe para paralisar.", "Se esconde nas sombras e gosta de assustar as pessoas.", "Cobra gigante de pedra que cava túneis embaixo da terra.", "Come sonhos usando poderes psíquicos.", "Usa um pêndulo para hipnotizar e fazer as pessoas dormirem.", "Caranguejo que vive na praia e tem garras fortes.", "Tem uma garra gigante, enorme e muito forte.", "Parece uma Poké Bola e explode com facilidade.", "Explode com o menor choque porque vive carregado de energia.", "Seis ovos que se comunicam por telepatia.", "Tem três cabeças e cresce alto como um coqueiro.", "Usa o crânio da mãe como capacete e chora à noite.", "Usa um osso como arma e luta com muita habilidade.", "Chuta com as pernas, que se esticam muito.", "Soca rápido como um boxeador.", "Tem uma língua longa e lambe tudo que vê.", "Guarda gás tóxico dentro do corpo e flutua.", "Dois Koffing unidos, que misturam gases diferentes.", "Forte, mas pouco inteligente; atropela tudo que vê.", "Fura rochas com o chifre em forma de broca.", "Seus ovos são nutritivos e ele cuida de quem está ferido.", "Cipós azuis cobrem todo o corpo dele.", "Mãe dedicada que carrega o filhote na bolsa.", "Cavalo-marinho que esguicha tinta para escapar.", "Tem espinhos venenosos e nada muito rápido.", "Peixe elegante que nada contra a correnteza.", "Cava ninhos nos rios e usa o chifre para lutar.", "A joia vermelha no centro do corpo brilha.", "A gema roxa brilha e ele gira rápido para nadar e voar.", "Cria paredes invisíveis com os gestos.", "Tem lâminas afiadas nos braços e ataca em alta velocidade.", "Parece dançar e fala num ritmo diferente.", "Atrai eletricidade e costuma ficar perto de usinas.", "Tem o corpo em chamas e vive em vulcões.", "Prende as presas com as pinças e não solta.", "Touro furioso que bate no próprio corpo com as três caudas.", "Fraco e sem utilidade; só sabe saltitar.", "Fica enfurecido e pode destruir cidades inteiras.", "Gentil, carrega pessoas nas costas pelas águas.", "Pode copiar qualquer coisa que vê.", "Muda de forma conforme o ambiente em que vive.", "Seu corpo se mistura com a água e some nela.", "Os pelos eriçados soltam eletricidade.", "Guarda chamas no corpo e solta calor.", "Pokémon feito de dados, criado por programação.", "Pokémon antigo, trazido de volta de um fóssil; nada com os tentáculos.", "Usa os tentáculos para capturar presas e tem uma casca pesada.", "Fóssil vivo que se esconde no fundo do mar.", "Tem lâminas afiadas que cortam as presas no mar.", "Pterodátilo trazido de volta de um fóssil; voa muito rápido.", "Come e dorme o tempo todo, e bloqueia estradas.", "Pássaro lendário do gelo que voa pelo céu congelando tudo.", "Pássaro lendário elétrico que vive em nuvens de tempestade.", "Pássaro lendário de fogo cujas asas queimam.", "Dragão raro que troca de pele ao crescer.", "Voa controlando o clima ao redor.", "Gentil e muito rápido, dá a volta ao mundo em 16 horas.", "Criado por cientistas, tem um poder psíquico enorme.", "Possui o DNA de todos os Pokémon; é raro e brincalhão."];
 let todos = [];            // [{id, nome}]
 let filtroTipo = null;     // conjunto de ids ou null
 let atual = 0;
@@ -117,7 +130,6 @@ const idDe = url => +url.split("/").filter(Boolean).pop();
 function definirTema(escuro) {
   document.documentElement.dataset.theme = escuro ? "dark" : "light";
   $("tema").setAttribute("aria-pressed", String(escuro));
-  $("tema").setAttribute("aria-label", escuro ? "Ativar modo claro" : "Ativar modo escuro");
   $("tema").textContent = escuro ? "☀" : "☾";
   try {
     localStorage.setItem(THEME_KEY, escuro ? "dark" : "light");
@@ -135,90 +147,227 @@ try {
 definirTema(temaInicial);
 $("tema").addEventListener("click", () => definirTema(document.documentElement.dataset.theme !== "dark"));
 
-function desenharLista() {
-  const q = $("busca").value.trim().toLowerCase();
-  const itens = todos.filter(p =>
-    (!filtroTipo || filtroTipo.has(p.id)) &&
-    (!q || p.nome.includes(q) || String(p.id) === q || String(p.id).padStart(3, "0").includes(q)));
-  $("lista").innerHTML = itens.length ? itens.map(p =>
-    `<li><button data-id="${p.id}" class="${p.id === atual ? "on" : ""}"><img src="${SMALL(p.id)}" alt="" loading="lazy"><span class="num">#${String(p.id).padStart(3, "0")}</span> ${p.nome}</button></li>`
-  ).join("") : `<li class="msg">Nenhum Pokémon encontrado.</li>`;
+function luz(hex) {
+  const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+}
+function corTexto(hex) {  // escolhe texto preto ou branco, o que der mais contraste
+  const L = luz(hex);
+  return (L + 0.05) / 0.05 > 1.05 / (L + 0.05) ? "#111" : "#fff";
+}
+function chipTipo(t, extra = "") {
+  const cor = TIPOS[t][1];
+  return `<span class="tipo" style="background:${cor};color:${corTexto(cor)}">${TIPOS[t][0]}${extra}</span>`;
+}
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c])); }
+const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+const ESPECIAIS = {"nidoran-f": "Nidoran ♀", "nidoran-m": "Nidoran ♂", "mr-mime": "Mr. Mime", "farfetchd": "Farfetch'd"};
+const fmtNome = n => ESPECIAIS[n] || n.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+const anunciar = t => { $("status").textContent = t; };
+
+// ==FRAQUEZAS-INICIO==
+const TODOS_TIPOS = Object.keys(TIPOS);  // 18 tipos: a PokéAPI usa a tipagem atual (ex.: Clefairy é Fada)
+const ROTULO_MULT = {x4: "×4", x2: "×2", x0_5: "×½", x0_25: "×¼", x0: "×0"};
+
+function computeEffectiveness(tiposDoPokemon, relacoesPorTipo) {
+  const mapa = {};
+  TODOS_TIPOS.forEach(atacante => {
+    let m = 1;
+    tiposDoPokemon.forEach(def => {
+      const r = relacoesPorTipo[def];
+      if (r.none.includes(atacante)) m *= 0;
+      else if (r.double.includes(atacante)) m *= 2;
+      else if (r.half.includes(atacante)) m *= 0.5;
+    });
+    mapa[atacante] = m;
+  });
+  return mapa;
 }
 
-function plano(chain) {  // lista simples de todos os estágios da cadeia
-  const out = [];
-  (function andar(no, nivel) {
-    out.push({nome: no.species.name, id: idDe(no.species.url), nivel});
-    no.evolves_to.forEach(n => andar(n, nivel + 1));
-  })(chain, 0);
-  return out.filter(e => e.id <= 151);
+function groupByMultiplier(mapa) {
+  const g = {x4: [], x2: [], x0_5: [], x0_25: [], x0: []};
+  Object.entries(mapa).forEach(([t, m]) => {
+    if (m === 4) g.x4.push(t);
+    else if (m === 2) g.x2.push(t);
+    else if (m === 0.5) g.x0_5.push(t);
+    else if (m === 0.25) g.x0_25.push(t);
+    else if (m === 0) g.x0.push(t);
+  });
+  return g;
+}
+// ==FRAQUEZAS-FIM==
+
+const typeCache = new Map();  // nome -> Promise<{double, half, none}>
+function fetchTypeRelations(nome) {
+  if (!typeCache.has(nome)) {
+    const pr = getJSON(API + "type/" + nome).then(d => {
+      const f = lista => lista.map(x => x.name);
+      const r = d.damage_relations;
+      return {double: f(r.double_damage_from), half: f(r.half_damage_from), none: f(r.no_damage_from)};
+    });
+    pr.catch(() => typeCache.delete(nome));  // permite tentar de novo após falha
+    typeCache.set(nome, pr);
+  }
+  return typeCache.get(nome);
+}
+
+function chipsFraqueza(tipos, chave) {
+  return tipos.map(t => chipTipo(t, ` <b>${ROTULO_MULT[chave]}</b>`)).join("");
+}
+
+function renderWeaknessesSection(g) {
+  const fracas = [["x4", g.x4], ["x2", g.x2]].filter(([, l]) => l.length).map(([k, l]) => chipsFraqueza(l, k)).join("");
+  const resist = [["x0_5", g.x0_5], ["x0_25", g.x0_25]].filter(([, l]) => l.length).map(([k, l]) => chipsFraqueza(l, k)).join("");
+  const imunes = chipsFraqueza(g.x0, "x0");
+  return `
+    <div class="forte"><div class="tipos">${fracas || `<p class="vazio">Nenhuma fraqueza.</p>`}</div></div>
+    <h4>Resistências</h4>
+    <div class="leve"><div class="tipos">${resist || `<p class="vazio">Nenhuma resistência.</p>`}</div></div>
+    <h4>Imunidades</h4>
+    <div class="leve"><div class="tipos">${imunes || `<p class="vazio">Nenhuma imunidade.</p>`}</div></div>
+    <p class="nota">Considera só os tipos; habilidades podem alterar o dano.</p>`;
+}
+
+async function carregarFraquezas(p) {
+  const id = p.id, el = $("fraquezas");
+  if (!el) return;
+  el.innerHTML = `<p class="vazio">Carregando fraquezas...</p>`;
+  try {
+    const nomes = p.types.map(t => t.type.name);
+    const rels = await Promise.all(nomes.map(fetchTypeRelations));
+    const porTipo = Object.fromEntries(nomes.map((n, i) => [n, rels[i]]));
+    const html = renderWeaknessesSection(groupByMultiplier(computeEffectiveness(nomes, porTipo)));
+    if (id !== atual) return;  // outra ficha foi aberta enquanto carregava
+    $("fraquezas").innerHTML = html;
+  } catch (e) {
+    if (id !== atual) return;
+    $("fraquezas").innerHTML = `<p class="vazio">Não foi possível carregar as fraquezas.</p>`;
+  }
+}
+
+function desenharLista(contar) {
+  const q = $("busca").value.trim().replace(/^#/, "");
+  const nq = norm(q), soNum = /^\d+$/.test(q);
+  const f = document.activeElement && document.activeElement.closest ? document.activeElement.closest("#lista button[data-id]") : null;
+  const focoId = f ? f.dataset.id : null;
+  const itens = todos.filter(p =>
+    (!filtroTipo || filtroTipo.has(p.id)) &&
+    (!q || (soNum ? p.id === Number(q) : norm(p.nome).includes(nq) || norm(fmtNome(p.nome)).includes(nq))));
+  $("lista").innerHTML = itens.length ? itens.map(p =>
+    `<li><button data-id="${p.id}" class="${p.id === atual ? "on" : ""}"${p.id === atual ? ' aria-current="true"' : ""}><img src="${SMALL(p.id)}" alt="" loading="lazy"><span class="num">#${String(p.id).padStart(3, "0")}</span> ${esc(fmtNome(p.nome))}</button></li>`
+  ).join("") : `<li class="msg">Nenhum Pokémon encontrado.</li>`;
+  const l = $("lista"), on = l.querySelector(".on");
+  if (on && (on.offsetTop < l.scrollTop || on.offsetTop + on.offsetHeight > l.scrollTop + l.clientHeight)) {
+    l.scrollTop = on.offsetTop - (l.clientHeight - on.offsetHeight) / 2;
+  }
+  if (focoId) { const b = l.querySelector(`button[data-id="${focoId}"]`); if (b) b.focus({preventScroll: true}); }
+  if (contar) anunciar(itens.length === 1 ? "1 Pokémon encontrado." : itens.length + " Pokémon encontrados.");
+}
+
+function podar(no) {  // mantém só Kanto; se a raiz for de outra geração, sobem os filhos
+  const id = idDe(no.species.url), filhos = no.evolves_to.flatMap(podar);
+  return id <= 151 ? [{id, nome: no.species.name, filhos}] : filhos;
+}
+function ramo(n) {
+  const bt = `<button data-id="${n.id}"><img src="${SMALL(n.id)}" alt="">${esc(fmtNome(n.nome))}</button>`;
+  if (!n.filhos.length) return bt;
+  if (n.filhos.length === 1) return bt + `<span>→</span>` + ramo(n.filhos[0]);
+  return bt + `<span>→</span><div class="ramos">${n.filhos.map(c => `<div class="evo">${ramo(c)}</div>`).join("")}</div>`;
+}
+function evoHtml(chain) {
+  const raizes = podar(chain);
+  if (raizes.every(r => !r.filhos.length)) return "Este Pokémon não evolui.";
+  return raizes.map(r => `<div class="evo">${ramo(r)}</div>`).join("");
 }
 
 async function mostrar(id) {
   atual = id;
-  localStorage.setItem(STORAGE_KEY, String(id));
+  try { localStorage.setItem(STORAGE_KEY, String(id)); } catch (e) {}
+  const tela = $("tela");
+  const focoNaTela = tela.contains(document.activeElement);
   desenharLista();
-  $("tela").innerHTML = `<p class="msg">Buscando dados...</p>`;
+  tela.innerHTML = `<p class="msg">Buscando dados...</p>`;
+  anunciar("Carregando dados do Pokémon...");
   try {
     const [p, esp] = await Promise.all([getJSON(API + "pokemon/" + id), getJSON(API + "pokemon-species/" + id)]);
-    const cadeia = await getJSON(esp.evolution_chain.url);
-    const evo = plano(cadeia.chain);
-    const entradasLore = [...esp.flavor_text_entries].reverse();
-    const entradaLore = entradasLore.find(t => t.language.name.toLowerCase().replace("_", "-") === "pt-br")
-      || entradasLore.find(t => t.language.name.toLowerCase() === "pt")
-      || entradasLore.find(t => t.language.name.toLowerCase() === "en");
-    const texto = (entradaLore?.flavor_text || "").replace(/[\n\f]/g, " ").replace(/\s+/g, " ").trim();
+    let evo;
+    try { evo = evoHtml((await getJSON(esp.evolution_chain.url)).chain); }
+    catch (e) { evo = "Evoluções indisponíveis no momento."; }
+    const texto = LORE[id - 1] || "";
+    const langLore = "";
     if (id !== atual) return;
-    $("tela").innerHTML = `
+    const nome = fmtNome(p.name);
+    tela.innerHTML = `
       <div class="hero">
-        <img src="${IMG(id)}" alt="${p.name}">
+        <img src="${IMG(id)}" alt="${esc(nome)}" onerror="this.style.visibility='hidden'">
         <div>
           <div class="num">#${String(id).padStart(3, "0")}</div>
-          <h2>${p.name}</h2>
-          <div class="tipos">${p.types.map(t => `<span class="tipo" style="background:${TIPOS[t.type.name][1]}">${TIPOS[t.type.name][0]}</span>`).join("")}</div>
-          <p class="info">Altura: ${p.height / 10} m · Peso: ${p.weight / 10} kg</p>
+          <h2>${esc(nome)}</h2>
+          <div class="tipos">${p.types.map(t => chipTipo(t.type.name)).join("")}</div>
+          <p class="info">Altura: ${String(p.height / 10).replace(".", ",")} m · Peso: ${String(p.weight / 10).replace(".", ",")} kg</p>
         </div>
       </div>
+      <h3>Fraquezas</h3>
+      <div class="fq" id="fraquezas"></div>
       <h3>Lore</h3>
-      <p class="info">${texto}</p>
+      <p class="info"${langLore}>${esc(texto || "Sem descrição disponível.")}</p>
       <h3>Status</h3>
-      ${p.stats.map(s => `<div class="stat"><span>${STATS[s.stat.name]}</span><b>${s.base_stat}</b><div class="bar"><i style="width:${Math.min(100, s.base_stat / 2)}%"></i></div></div>`).join("")}
+      ${p.stats.map(s => `<div class="stat"><span>${STATS[s.stat.name]}</span><b>${s.base_stat}</b><div class="bar"><i style="width:${Math.min(100, s.base_stat / 2.55)}%"></i></div></div>`).join("")}
       <h3>Evoluções</h3>
-      <div class="evo">${evo.length > 1 ? evo.map((e, i) => `${i ? "<span>→</span>" : ""}<button data-id="${e.id}"><img src="${SMALL(e.id)}" alt="">${e.nome}</button>`).join("") : "Este Pokémon não evolui."}</div>`;
+      <div class="evo">${evo}</div>`;
+    tela.scrollTop = 0;
+    if (matchMedia("(max-width:720px)").matches) window.scrollTo({top: 0});
+    if (focoNaTela) tela.focus({preventScroll: true});
+    anunciar(`${nome}, número ${id}.`);
+    carregarFraquezas(p);
   } catch (e) {
-    $("tela").innerHTML = `<p class="msg">Não consegui carregar os dados. Verifique sua internet e tente de novo.</p>`;
+    if (id !== atual) return;
+    tela.innerHTML = `<p class="msg">Não consegui carregar os dados. Verifique sua internet e tente de novo.</p>`;
   }
 }
 
+let tokenFiltro = 0;
 async function filtrarTipo(t) {
-  if (!t) { filtroTipo = null; return desenharLista(); }
+  const meu = ++tokenFiltro;
+  if (!t) { filtroTipo = null; return desenharLista(true); }
   $("lista").innerHTML = `<li class="msg">Filtrando...</li>`;
   try {
     const d = await getJSON(API + "type/" + t);
+    if (meu !== tokenFiltro) return;  // o filtro mudou enquanto carregava
     filtroTipo = new Set(d.pokemon.map(x => idDe(x.pokemon.url)).filter(i => i <= 151));
-  } catch (e) { filtroTipo = null; }
-  desenharLista();
+  } catch (e) {
+    if (meu !== tokenFiltro) return;
+    filtroTipo = null;
+    $("tipo").value = "";
+    $("lista").innerHTML = `<li class="msg">Não consegui aplicar o filtro. Tente de novo.</li>`;
+    return;
+  }
+  desenharLista(true);
 }
 
 async function iniciar() {
-  $("tipo").insertAdjacentHTML("beforeend", Object.entries(TIPOS).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join(""));
+  // Sombrio fica de fora: nenhum dos 151 de Kanto tem esse tipo
+  $("tipo").insertAdjacentHTML("beforeend", Object.entries(TIPOS).filter(([k]) => k !== "dark").map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join(""));
   try {
     const d = await getJSON(API + "pokemon?limit=151");
     todos = d.results.map(r => ({id: idDe(r.url), nome: r.name}));
     $("aleatorio").disabled = false;
     desenharLista();
-    const salvo = Number(localStorage.getItem(STORAGE_KEY));
+    let salvo = 0;
+    try { salvo = Number(localStorage.getItem(STORAGE_KEY)); } catch (e) {}
     const inicial = Number.isInteger(salvo) && salvo >= 1 && salvo <= 151 ? salvo : 25;
+    TODOS_TIPOS.forEach(t => fetchTypeRelations(t).catch(() => {}));  // aquece o cache em segundo plano
     mostrar(inicial);  // restaura o último Pokémon ou começa com o Pikachu
   } catch (e) {
     $("tela").innerHTML = `<p class="msg">Não consegui falar com a PokéAPI. Verifique sua internet e recarregue a página.</p>`;
   }
 }
 
-$("busca").addEventListener("input", desenharLista);
+$("busca").addEventListener("input", () => desenharLista(true));
 $("tipo").addEventListener("change", e => filtrarTipo(e.target.value));
 $("aleatorio").addEventListener("click", () => {
   if (!todos.length) return;
+  ++tokenFiltro;
   $("busca").value = "";
   $("tipo").value = "";
   filtroTipo = null;
